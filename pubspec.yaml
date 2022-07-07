@@ -1,7 +1,10 @@
 name: danger_plugin_dart_analyze
-description: A starting point for Dart libraries or applications.
+description: A Danger Dart plugin to process analyze result.
 version: 1.0.0
-# homepage: https://www.example.com
+homepage: https://github.com/blendthink/danger-plugin-dart-analyze
+repository: https://github.com/blendthink/danger-plugin-dart-analyze
+documentation: https://github.com/blendthink/danger-plugin-dart-analyze
+issue_tracker: https://github.com/blendthink/danger-plugin-dart-analyze/issues
 
 environment:
   sdk: '>=2.17.5 <3.0.0'
