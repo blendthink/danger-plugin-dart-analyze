@@ -1,39 +1,37 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Danger Plugin: Dart Analyze
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+[![Pub version](https://img.shields.io/pub/v/danger_plugin_dart_analyze.svg)](https://pub.dev/packages/danger_plugin_dart_analyze)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+This plugin will parse the analyze results, and notify.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+First, you need to prepare test result in json format.
+You may either:
 
-```dart
-const like = 'sample';
+```shell
+dart analyze > your_analyze_results.log
+flutter analyze > your_analyze_results.log
 ```
 
-## Additional information
+Adding this plugin to `pubspec.yaml`
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```yaml
+dev_dependencies:
+  danger_core:
+  danger_plugin_dart_analyze:
+```
+
+In `dangerfile.dart`, you need to import this, and call `DangerPluginDartAnalyze.processFile` with analyze result file.
+
+```dart
+import 'dart:io';
+
+import 'package:danger_core/danger_core.dart';
+import 'package:danger_plugin_dart_analyze/danger_plugin_dart_analyze.dart';
+
+void main() {
+  final analyzeResultFile = File('your_analyze_results.log');
+  DangerPluginDartAnalyze.processFile(analyzeResultFile);
+}
+```
