@@ -1,7 +1,10 @@
 import 'package:danger_plugin_dart_analyze/src/models/dart_analyze_result.dart';
+import 'package:path/path.dart' as p;
 
 class DartAnalyzeResultParser {
-  const DartAnalyzeResultParser();
+  String? workingPath;
+
+  DartAnalyzeResultParser(this.workingPath);
 
   static final _regex =
       RegExp(r' *(info|warning|error) • (.+) • (.+):(\d+):\d+ • (.+)');
@@ -12,7 +15,7 @@ class DartAnalyzeResultParser {
 
     final severity = Severity.values.byName(match.group(1)!);
     final message = match.group(2)!;
-    final filePath = match.group(3)!;
+    final filePath = p.relative('$workingPath/${match.group(3)!}');
     final line = int.parse(match.group(4)!);
     final code = match.group(5)!;
 

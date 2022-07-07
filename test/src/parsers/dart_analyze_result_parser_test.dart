@@ -1,9 +1,10 @@
 import 'package:danger_plugin_dart_analyze/src/models/dart_analyze_result.dart';
 import 'package:danger_plugin_dart_analyze/src/parsers/dart_analyze_result_parser.dart';
+import 'package:path/path.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const parser = DartAnalyzeResultParser();
+  final parser = DartAnalyzeResultParser(current);
   group('diagnostic', () {
     test('info', () {
       final expected = DartAnalyzeResult(
