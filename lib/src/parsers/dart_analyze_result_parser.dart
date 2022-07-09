@@ -13,7 +13,7 @@ class DartAnalyzeResultParser {
     final match = _regex.firstMatch(logLine);
     if (match == null) return null;
 
-    final severity = Severity.values.byName(match.group(1)!);
+    final severity = Severity.values.valueOf(match.group(1)!);
     final message = match.group(2)!;
     final filePath = p.relative('$workingPath/${match.group(3)!}');
     final line = int.parse(match.group(4)!);

@@ -17,8 +17,13 @@ enum Severity {
   info,
   warning,
   error,
-  ;
+}
 
-  @override
-  String toString() => name;
+extension EnumValueOf<T extends Enum> on Iterable<T> {
+  T valueOf(String name) {
+    for (final value in this) {
+      if (value.name == name) return value;
+    }
+    throw ArgumentError.value(name, "name", "No enum value with that name");
+  }
 }
