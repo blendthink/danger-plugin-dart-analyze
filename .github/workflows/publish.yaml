@@ -1,0 +1,30 @@
+name: publish
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'main'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - name: copy credentials
+        run: .github/scripts/copy-credentials.sh
+        env:
+          PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+      - name: publish
+        run: dart pub publish --force
+      - name: push tag
+        run: |
+          HEAD_REF="${{ github.head_ref }}"
+          # release/v1.0.0 → v1.0.0
+          TAG_NAME="${HEAD_REF/release\//}"
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
